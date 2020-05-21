@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 const path =require('path');
-const foodItems = require('./routes/api/foodItems');
+
 
 //CORS enabled
  app.use(cors());
@@ -33,8 +33,8 @@ app.use(express.json());
 
 //Db config
 // 1st line is for Mongo Atlas, 2nd line is for local dev
-mongoose.connect(process.env.DATABASEURL, {
-// mongoose.connect("mongodb://localhost:27017/restaurant",{
+// mongoose.connect(process.env.DATABASEURL, {
+mongoose.connect("mongodb://localhost:27017/restaurant",{
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -46,7 +46,9 @@ mongoose.connect(process.env.DATABASEURL, {
  });
 
 //use routes
-app.use('/api/foodItems', foodItems);
+app.use('/api/foodItems', require('./routes/api/foodItems'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 // Serve static assets if in production
 if(process.env.NODE_ENV==='production'){

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const auth = require('../../middleware/auth')
 
 // Item Model
 
@@ -8,7 +8,7 @@ const FoodItem = require('../../models/FoodItem');
 
 //@route GET api/foodItems
 //@desc Get all foodItems
-//@acces
+//@acces Public
 router.get('/',(req,res) =>{
     FoodItem.find()
     //sort by date descendent 
@@ -18,8 +18,8 @@ router.get('/',(req,res) =>{
 
 //@route POST api/foodItems
 //@desc Create a foodItem
-//@acces
-router.post('/', (req, res) => {
+//@acces Private
+router.post('/', auth,(req, res) => {
     const newItem = new FoodItem({
         name: req.body.name
     })
@@ -31,8 +31,8 @@ router.post('/', (req, res) => {
 
 //@route DELETE api/foodItems/:id
 //@desc Delete a foodItem
-//@acces
-router.delete('/:id', (req, res) => {
+//@acces Private
+router.delete('/:id',auth, (req, res) => {
     FoodItem.findById(req.params.id)
     .then( item => item.deleteOne().then( () => res.json({success: true})))  
     .catch(err => res.status(404).json({ success: false})) 
