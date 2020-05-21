@@ -8,6 +8,13 @@ import PropTypes from 'prop-types';
 
 class MenuList extends Component{
 
+    static propTypes = {
+        getItems: PropTypes.func.isRequired,
+        deleteFoodItem: PropTypes.func.isRequired,
+        foodItem: PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool
+    }
+
     componentDidMount() {
         this.props.getFoodItems();
     }
@@ -25,12 +32,15 @@ class MenuList extends Component{
                         {foodItems.map(({_id, name})=> (
                             <CSSTransition key={_id} timeout={500} classNames='fade'>
                                 <ListGroupItem>
-                                    <Button
-                                    className="remove-btn"
-                                    color="danger"
-                                    size="sm"
-                                    onClick={this.onDeleteClick.bind(this, _id)}
-                                    >&times;</Button>
+                                    {this.props.isAuthenticated ?
+                                       ( <Button
+                                        className="remove-btn"
+                                        color="danger"
+                                        size="sm"
+                                        onClick={this.onDeleteClick.bind(this, _id)}
+                                        >&times;</Button>
+                                        ) : null
+                                      }
                                     {name}
                                 </ListGroupItem>
                             </CSSTransition>
@@ -42,14 +52,11 @@ class MenuList extends Component{
     }
 }
 
-MenuList.propTypes = {
-    getItems: PropTypes.func.isRequired,
-    deleteFoodItem: PropTypes.func.isRequired,
-    foodItem: PropTypes.object.isRequired
-}
+ 
 
 const mapStateToProps = (state) => ({
-    foodItem: state.foodItem
+    foodItem: state.foodItem,
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps,{getFoodItems,deleteFoodItem})(MenuList);

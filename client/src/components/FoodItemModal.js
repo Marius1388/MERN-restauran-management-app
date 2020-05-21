@@ -12,12 +12,17 @@ import {
 
 
 import {connect} from 'react-redux';
-import {addFoodItem} from '../actions/foodItemActions'
+import {addFoodItem} from '../actions/foodItemActions';
+import PropTypes from 'prop-types';
 
 class FoodItemModal extends Component{
     state = {
         modal: false,
         name: ''
+    }
+
+    static propTypes = {
+        isAuthenticated: PropTypes.bool
     }
 
     toggle = () =>{
@@ -50,13 +55,17 @@ class FoodItemModal extends Component{
     render(){
         return(
             <div>
+                {this.props.isAuthenticated ?
                 <Button
                     color='dark'
                     style={{marginBottom: '2rem'}}
                     onClick={this.toggle}
                 >
                     Add Food Item
-                </Button>
+                </Button>   
+                : <h4 className="mb-3 ml-4">Please log in to manage food items</h4>             
+            }
+
 
 
                 <Modal
@@ -93,7 +102,8 @@ class FoodItemModal extends Component{
 }
 
 const mapStateToProps = state => ({
-    foodItem: state.foodItem
+    foodItem: state.foodItem,
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps, {addFoodItem})(FoodItemModal);
