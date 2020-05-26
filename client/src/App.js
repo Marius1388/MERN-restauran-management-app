@@ -23,7 +23,7 @@ class App extends Component {
           <AppNavbar></AppNavbar>
           <h1 style={{textAlign:'center'}}>These are the items from your menu: </h1> 
           <Container>
-              <FoodItemModal/>
+              <FoodItemModal/>  
               <MenuList></MenuList>
           </Container>
       </div>

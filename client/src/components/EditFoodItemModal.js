@@ -13,10 +13,10 @@ import {
 
 
 import {connect} from 'react-redux';
-import {addFoodItem} from '../actions/foodItemActions';
+import {editFoodItem} from '../actions/foodItemActions';
 import PropTypes from 'prop-types';
 
-class FoodItemModal extends Component{
+class EditFoodItemModal extends Component{
     state = {
         modal: false,
         name: '',
@@ -62,10 +62,10 @@ class FoodItemModal extends Component{
             category: this.state.category
         }  
 
-        //Add food item via addFoodItem action
+        //Edit food item via editFoodItem action
         if(this.state.name && this.state.category){
             this.setState({ msg: null });
-            this.props.addFoodItem(newItem);
+            this.props.editFoodItem(newItem);
             //Close the modal
             this.toggle();
         }else{
@@ -101,7 +101,7 @@ class FoodItemModal extends Component{
                     toggle={this.toggle}    
                 >
                     <ModalHeader toggle={this.toggle}>
-                        Add to Menu List
+                        Edit Item from Menu List
                     </ModalHeader>
 
                 <ModalBody>
@@ -115,7 +115,7 @@ class FoodItemModal extends Component{
                                 type='text'
                                 name= 'name'
                                 id='foodItem'
-                                placeholder='Add food item'
+                                placeholder='Edit food item'
                                 onChange={this.onChange}
                             />
                             
@@ -134,7 +134,7 @@ class FoodItemModal extends Component{
                                 color='dark'
                                 style={{marginTop:'2rem'}}
                                 block
-                            >Add Food Item</Button>
+                            >Edit Food Item</Button>
                         </FormGroup>
                     </Form>
                 </ModalBody>
@@ -149,4 +149,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, {addFoodItem})(FoodItemModal);
+export default connect(mapStateToProps, {addFoodItem})(EditFoodItemModal);

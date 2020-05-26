@@ -33,12 +33,12 @@ app.use(express.json());
 
 //Db config
 // 1st line is for Mongo Atlas, 2nd line is for local dev
-mongoose.connect(process.env.DATABASEURL, {
-// mongoose.connect("mongodb://localhost:27017/restaurant",{
+// mongoose.connect(process.env.DATABASEURL, {
+mongoose.connect("mongodb://localhost:27017/restaurant",{
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true
  }).then(()=> {
     console.log("connected to Db!!!");
  }).catch(err => {

@@ -21,7 +21,8 @@ router.get('/',(req,res) =>{
 //@acces Private
 router.post('/', auth,(req, res) => {
     const newItem = new FoodItem({
-        name: req.body.name
+        name: req.body.name,
+        category: req.body.category
     })
     newItem.save()
         .then(foodItem => res.json(foodItem))
@@ -38,6 +39,19 @@ router.delete('/:id',auth, (req, res) => {
     .catch(err => res.status(404).json({ success: false})) 
 })
     
-
+//@route EDIT api/foodItems/:id
+//@desc edit a foodItem
+//@acces Private
+router.put('/:id',auth, (req, res) => {
+    
+    FoodItem.findByIdAndUpdate(req.params.id, {name:req.body.name,category:req.body.category}, {new: true}, function(err, foodItem){
+        
+        if(err){
+            res.status(404).json({ success: false})
+        } else {
+            res.json(foodItem);
+        }
+    }); 
+ });
 
 module.exports = router;
