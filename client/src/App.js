@@ -4,6 +4,7 @@ import './App.css';
 import AppNavbar from './components/AppNavbar'
 import MenuList from './components/MenuList'
 import FoodItemModal from './components/FoodItemModal'
+import EditFoodItemModal from './components/EditFoodItemModal'
 import {Container} from 'reactstrap' 
 
 
@@ -23,7 +24,7 @@ class App extends Component {
           <AppNavbar></AppNavbar>
           <h1 style={{textAlign:'center'}}>These are the items from your menu: </h1> 
           <Container>
-              <FoodItemModal/>  
+              <FoodItemModal><EditFoodItemModal/></FoodItemModal>    
               <MenuList></MenuList>
           </Container>
       </div>

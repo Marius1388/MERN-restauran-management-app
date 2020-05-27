@@ -146,7 +146,7 @@ class EditFoodItemModal extends Component{
 
 const mapStateToProps = state => ({
     foodItem: state.foodItem,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated 
 })
 
-export default connect(mapStateToProps, {addFoodItem})(EditFoodItemModal);
+export default connect(mapStateToProps, {editFoodItem})(EditFoodItemModal);
